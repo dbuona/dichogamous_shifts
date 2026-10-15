@@ -16,7 +16,7 @@ cols2Keep<-c("gbifID","license",
 
 d2<-d %>% select(all_of(cols2Keep))
 
-table(d2$reproductiveCondition)
+goober<-d2 %>% group_by (reproductiveCondition,specificEpithet) %>% count() %>% arrange(-n)
 
 d2$spike<-NA
 d2$pistillate<-NA
@@ -26,7 +26,7 @@ d2$seed<-NA
 acrocystis<-c("pensylvanica","inops","lucorum","albicans","floridana",
               "nigromarginata","peckii","brevicaulis","deflexa","geophila","pityophila",
               "rossii","tonsa","umbellata","brainerdii","communis","globosa","novae-angliae",
-              "turbinata","serpenticola")
+              "turbinata","serpenticola","pedunculata","concinna","richardsonnii") ## combineing candestinae 
 
 acro<-filter(d2,specificEpithet %in% acrocystis)
 acro %>% group_by (specificEpithet) %>% count() %>% arrange(-n)
@@ -51,3 +51,5 @@ write.csv(acro,"Input/acrocystisInput.csv",row.names = FALSE)
 write.csv(carey,"Input/careyanaeInput.csv",row.names = FALSE)
 write.csv(laxi,"Input/laxifloraeInput.csv",row.names = FALSE)
 nrow(laxi)+nrow(acro)+nrow(carey)
+
+
